@@ -1,3 +1,6 @@
+import requests
+from bs4 import BeautifulSoup
+
 # The employee class is the base class. Some classes, like the Dork class, will inherit attributes from this one.
 class Employee(object):
     def __init__(self, fname, sname, position):
@@ -93,7 +96,7 @@ def welcome():
 
 #The main list of options.    
 def menu():
-    print('\nWhat do you want to do?\n1) Spy on people\n2) Get information\n3) Buy paper\nExit?')
+    print('\nWhat do you want to do?\n1) Spy on people\n2) Get information\n3) Buy paper\n4) Check the weather in Scranton\nExit?')
     rmb = input("\nChoice: ").lower()
     
     if rmb == '1':
@@ -102,6 +105,8 @@ def menu():
         info()
     elif rmb == '3':
         buy_paper()
+    elif rmb == '4':
+        weather()
     elif rmb == 'quit' or rmb == 'exit':
         print('\nExiting...\n')
         quit()    
@@ -336,8 +341,40 @@ def buy_paper():
     done_checker()
 
 #This function will print a receipt
-def receipt():
-    pass
+def weather():
+    print("\n...CHECKING WEATHER...\n")
+    
+    def temp_checker():
+        headers = {'User-Agent': 'Daneel','From': 'github.com/R-Olivaw'}
+        url = 'https://weather.com/weather/today/l/USPA1459:1:US'
+        page = requests.get(url, headers = headers)
+        soup = BeautifulSoup(page.text, 'html.parser')
+        
+        card = soup.find(class_='today_nowcard-temp')
+        
+        symbol = card.find('sup')
+        symbol.decompose()
+        
+        temp_ob = card.find('span')
+        temp_num = temp_ob.contents
+        temp_int = int(temp_num[0])
+        temp = str(temp_num[0])
+    
+        if temp_int < -10:
+            print("\nBrr! It's " + temp + " degrees! There's no way Stanley is coming to work today.")
+        elif temp_int >= -10 and temp_int < 35:
+            print("\nIt's " + temp + " degrees. We should make oatmeal.")
+        elif temp_int >= 35 and temp_int < 65:
+            print("\nIt's " + temp + " degrees. Perfect weather for a fun run.")
+        elif temp_int >= 65 and temp_int < 99:
+            print("\nIt's " + temp + " degrees. Oh no, we left Kevin in the car!")
+        else:
+            print("\nDamn! It's " + temp + " degrees today! Somebody go check on Stanley.")
+            
+    temp_checker()
+    done_checker()
+    
+    
     
 welcome()
 menu()
