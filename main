@@ -96,7 +96,7 @@ def welcome():
 
 #The main list of options.    
 def menu():
-    print('\nWhat do you want to do?\n1) Spy on people\n2) Get information\n3) Buy paper\n4) Check the weather in Scranton\nExit?')
+    print('\nWhat do you want to do?\n1) Spy on people\n2) Get information\n3) Buy paper\n4) Check the weather in Scranton\n5) Play BlackJack with Kevin\nExit?')
     rmb = input("\nChoice: ").lower()
     
     if rmb == '1':
@@ -107,6 +107,9 @@ def menu():
         buy_paper()
     elif rmb == '4':
         weather()
+    elif rmb == '5':
+        import BlackJack
+        done_checker()
     elif rmb == 'quit' or rmb == 'exit':
         print('\nExiting...\n')
         quit()    
@@ -256,7 +259,7 @@ def whats_up():
         Angela.work()
         try_again_two()
     if ans == 'kelly':
-        kelly.work()
+        Kelly.work()
         try_again_two()
     if ans == 'toby':
         Toby.work()
