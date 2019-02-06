@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Apr 14 19:39:07 2018
 
-@author: Alex
-"""
 
 import random
 
